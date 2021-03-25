@@ -48,10 +48,11 @@ let pets = [
 
 ];
 
-const listarpets = () => {                      //Criando uma função para listar o nome dos pets e ao utilizar const fica impossivel de alterar essa função.
-    for(let i = 0; i < pets.length; i++){       //Criando um metodo interativo para fazer a contagem dos objetos
-        console.log(pets[i].nome);              //Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
-    }
-}
+const listarpets = () => {                                                          //Criando uma função para listar o nome dos pets e ao utilizar const fica impossivel de alterar essa função.
+    for(let pet of pets){                                                           //for(let i = 0; i < pets.length; i++){                   //Criando um metodo interativo para fazer a contagem dos objetos
 
-listarpets();                                    //Utilizando a função
+        console.log(`${pet.nome}, ${pet.idade}, ${pet.tipo}, ${pet.raca} `)    //console.log("O nome do pet é " + pets[i].nome); Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+    }                                                                               //Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+}                                                                                   //
+
+listarpets();                                                                       //Utilizando a função
