@@ -9,21 +9,28 @@
 //  que podem ser alterados.
 
 const nomePetshop = "PETSHOP AVANADE";
-
+const fs = require('fs');
 const moment = require('moment');
-const bancoDados = require('./bancoDados.json') ;
+let bancoDados = fs.readFileSync('bancoDados.json','utf-8')
 
-let pets =bancoDados.pets;
+bancoDados = JSON.parse(bancoDados);
 
+const atualizarBanco = () => {
+    let petsAtualizado = JSON.stringify(bancoDados,);
 
+    fs.writeFileSync('bancoDados.json', petsAtualizado, 'utf-8')
+}
 const listarPet = () => {
-    for (const pet of pets) {
-        console.log(`${pet.nome}`);
+    for (const pet of bancoDados.pets) {
+    
+    !pet.vacinado ? console.log(`${pet.nome} não foi vacinado.`) : console.log(`${pet.nome} foi vacinado!`) 
+    
     }
 }
-// listarPet();
+//listarPet();
+
 const vacinarPet = () => {                                                          //Criando uma função para listar o nome dos pets e ao utilizar const fica impossivel de alterar essa função.
-    for(let pet of pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
+    for(let pet of bancoDados.pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
         
         if (!pet.vacinado) {
             pet.vacinado == true
@@ -42,7 +49,7 @@ const campanhaVacina = () => {                                                  
     let animaisvacinados = 0;
     console.log("Campanha de vacina 2020");
     console.log("vacinando...");
-    for(let pet of pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
+    for(let pet of bancoDados.pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
         if(!pet.vacinado)
         {
             vacinarPet(pet);
@@ -54,27 +61,18 @@ const campanhaVacina = () => {                                                  
 
 //campanhaVacina();   
 const adicionarPet = novoPet => {
-    if (typeof novoPet == "object" && validarDados(novoPet)) {
-        // adiciona o pet
-        novoPet.nome = String(novoPet.nome);
-        novoPet.idade = parseInt(novoPet.idade);
-
-        if (!novoPet.servicos) {
-            novoPet.servicos = [];
-        }
-
-        pets.push(novoPet);
-    } else {
-        console.log("Ops, insira um argumento valido!");
-    }
+    bancoDados.pets.push(novoPet);
+    atualizarBanco();
+    console.log(`${novoPet.nome} foi adicionado com sucesso!`)
 }
-//adicionarPet();
+
 
 const darBanhoPet = pet => {
     pet.servicos.push({
         'nome':'banho',
         'data': moment().format('DD-MM-YYYY')
     });
+    atualizarBanco();
     console.log(`${pet.nome} está de banho tomado!`);
 };
 //darBanhoPet();
@@ -84,16 +82,49 @@ const tosarPet = pet => {
         'nome':'tosar',
         'data': moment().format('DD-MM-YYYY')
     }) 
+    atualizarBanco();
     console.log(`${pet.nome} está com o cabelinho na regua!`)
 }       
 //tosarPet();
-const apararUnhasPet = () => {
+const apararUnhasPet = pet => {
     pet.servicos.push({
         'nome':'aparar unhas',
         'data': moment().format('DD-MM-YYYY')
     }) 
+    atualizarBanco();
     console.log(`${pet.nome} está com as unhas cortadas!`)
 }       
 //apararUnhasPet();
+//let pet = dados.pets.find(findPet => findPet.nome == petNome);
 
+const atenderClientes = (tipodeservico, pet) => {
+
+    console.log(`${pet.tutor} bem vindo!`)
+        switch (tipodeservico) {
+            case 'banho':
+                darBanhoPet(pet);
+                break;
+            case 'tosar':
+                tosarPet(pet);
+                 break;
+            case 'aparar unhas':
+                apararUnhasPet(pet);
+                break;
+            default:
+                console.log('Serviço não disponivel -- Por favor consultar tabela de serviços!');
+                break;
+            }
+    console.log(`${pet.tutor} obrigado pela preferencia!`)   
+}   
+    
+    
+  
+    
+
+atenderClientes('tosar',bancoDados.pets[0])
+    
+ //tosarPet(bancoDados.pets[4])       
+//darBanhoPet(bancoDados.pets[0])
+//apararUnhasPet(bancoDados.pets[2])
+//atenderClientes();
 //console.log(bancoDados);
