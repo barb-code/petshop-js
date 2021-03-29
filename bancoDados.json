@@ -1,0 +1,48 @@
+{
+    "pets": [
+        {
+            "nome": "Tito",
+            "tipo": "cachorro",
+            "idade": 4,
+            "raca": "labradudle",
+            "peso": 5,
+            "tutor": "Bárbara",
+            "contato": "(81) 99974-6366",
+            "vacinado": true,
+            "servicos": ["banho","tosa"]
+        },
+        {
+            "nome": "Belinha",
+            "tipo": "cachorro",
+            "idade": 13,
+            "raca": "cocker",
+            "peso": 8,
+            "tutor": "Bárbara",
+            "contato": "(81) 99974-6366",
+            "vacinado": false,
+            "servicos": ["banho","tosa"]
+        },
+        {
+            "nome": "Tony",
+            "tipo": "gato",
+            "idade": 7,
+            "raca": "salsicha",
+            "peso": 4,
+            "tutor": "Shirlei",
+            "contato": "(81) 98974-63766",
+            "vacinado": false,
+            "servicos": ["corte de unha"]
+        },
+        {                                       
+            "nome": "TJeff",                        
+            "tipo": "gato",
+            "idade": 7,                            
+            "raca": "cocker",
+            "peso": 4,                             
+            "tutor": "Shirlei",
+            "contato": "(81) 98974-63766",
+            "vacinado": false,
+            "servicos": "['corte de unha']"
+        }
+    ]
+}
