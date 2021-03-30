@@ -23,14 +23,16 @@ const atualizarBanco = () => {
 const listarPet = () => {
     
     bancoDados.pets.forEach( pet => {
-        console.log(`|Tutor:${pet.tutor} - Contato:${pet.contato}|\n -Nome do animal:${pet.nome}\n-Tipo:${pet.tipo}\n-Idade:${pet.idade}\n-Raça:${pet.raca} `)
+    return console.log(`|Tutor:${pet.tutor} - Contato:${pet.contato}|\n -Nome do animal:${pet.nome}\n -Peso:${pet.tipo}\n -Tipo:${pet.peso}\n -Idade:${pet.idade}\n -Raça:${pet.raca} `)
     });
     //Utilizando if itenário
     //for (const pet of bancoDados.pets) {
     //    !pet.vacinado ? console.log(`${pet.nome} não foi vacinado.`) : console.log(`${pet.nome} foi vacinado!`) 
     //}
 }
-//listarPet();
+
+listarPet();
+
 const buscarPet =(nomePet)=>{
    
     let acharPet = bancoDados.pets.find((pet) => {
@@ -71,11 +73,12 @@ const campanhaVacina = () => {
     let campanha = bancoDados.pets.map(pet =>{
         if(!pet.vacinado)
         {
-            vacinarPet(pet);
             animaisvacinados ++;
-        }
+            return {vacinadonacampanha:pet.nome, numerodevacinacoes:animaisvacinados}
+        }                                                                             
     })
-    
+    console.log(campanha)
+    console.log(`Dando um total de ${animaisvacinados} animais vacinados na campanha!`);     
  //   for(let pet of bancoDados.pets){                                                           
  //       if(!pet.vacinado)
  //       {
@@ -83,10 +86,9 @@ const campanhaVacina = () => {
  //           animaisvacinados ++;
  //       }
  //   }
-    console.log(`Dando um total de ${animaisvacinados} animais vacinados na campanha!`);                                                                                
 }    
 
-//campanhaVacina();   
+campanhaVacina();   
 const adicionarPet = novoPet => {
     bancoDados.pets.push(novoPet);
     atualizarBanco();
