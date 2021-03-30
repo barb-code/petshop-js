@@ -24,9 +24,9 @@ const listarPet = () => {
   
     bancoDados.pets.forEach( pet => {
 
-    let {tutor,contato,nome,peso,tipo,idade,raca,servicos} = pet
+    let {tutor,contato,nome,tipo,idade,raca,peso,servicos} = pet
 
-    console.log(`\n|Tutor:${tutor} - Contato:${contato}|\n -Nome do animal:${nome}\n -Peso:${tipo}\n -Tipo:${peso}\n -Idade:${idade}\n -Raça:${raca}\n -Serviços:`, servicos)
+    console.log(`\n|Tutor: ${tutor} - Contato: ${contato}|\n - Nome do animal: ${nome}\n - Peso: ${peso} kg\n - Tipo: ${tipo}\n - Idade: ${idade}\n - Raça: ${raca}\n - Serviços: `, servicos)
     
     });
     //Utilizando if itenário
