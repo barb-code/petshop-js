@@ -21,9 +21,13 @@ const atualizarBanco = () => {
 }
 
 const listarPet = () => {
-    
+  
     bancoDados.pets.forEach( pet => {
-    return console.log(`|Tutor:${pet.tutor} - Contato:${pet.contato}|\n -Nome do animal:${pet.nome}\n -Peso:${pet.tipo}\n -Tipo:${pet.peso}\n -Idade:${pet.idade}\n -Raça:${pet.raca} `)
+
+    let {tutor,contato,nomepet,peso,tipo,idade,raca,servicos} = pet
+    
+    
+    return console.log(`|Tutor:${tutor} - Contato:${contato}|\n -Nome do animal:${nomepet}\n -Peso:${tipo}\n -Tipo:${peso}\n -Idade:${idade}\n -Raça:${raca}\n -Serviços: ${servicos} `)
     });
     //Utilizando if itenário
     //for (const pet of bancoDados.pets) {
@@ -38,7 +42,7 @@ const buscarPet =(nomePet)=>{
     let acharPet = bancoDados.pets.find((pet) => {
         return pet.nome == nomePet
     })
-    console.log(acharPet)
+    return acharPet ? console.log(acharPet) : console.log('Pet inexistente')
 }
 //buscarPet('Belinha');
 
@@ -48,47 +52,38 @@ const filtrarTipoPet = (tipoPet) =>{
     })
     console.log(tipopet)
 }
-//filtrarTipoPet('gato')
+//filtrarTipoPet('cachorro')
 
-const vacinarPet = () => {                                                          
+const vacinarPet = () => {
    
-       for(let pet of bancoDados.pets){                                                          
+    bancoDados.pets.forEach(pet => {
+        !pet.vacinado == false ? pet.vacinado==true && console.log(`${pet.nome} acabou de ser vacinado`) : console.log(`${pet.nome} já foi vacinado`) 
         
-        if (!pet.vacinado) {
-            pet.vacinado == true
-            console.log(`${pet.nome} foi vacinado!`);       
-        }
-        else{
-            console.log(`Opps! ${pet.nome} já foi vacinado. `);        
-        }
-    }                                                                               
-}    
+    });
+    atualizarBanco();
+}                                                                        
 
-//vacinarPet();                                                                     
-
-const campanhaVacina = () => {                                                          
-    let animaisvacinados = 0;
-    console.log("Campanha de vacina 2020");
+//vacinarPet()
+const campanhaVacina = () => {
+    console.log("Campanha de vacina 2021");
     console.log("vacinando...");
-    let campanha = bancoDados.pets.map(pet =>{
-        if(!pet.vacinado)
-        {
-            animaisvacinados ++;
-            return {vacinadonacampanha:pet.nome, numerodevacinacoes:animaisvacinados}
-        }                                                                             
-    })
-    console.log(campanha)
-    console.log(`Dando um total de ${animaisvacinados} animais vacinados na campanha!`);     
- //   for(let pet of bancoDados.pets){                                                           
- //       if(!pet.vacinado)
- //       {
- //           vacinarPet(pet);
- //           animaisvacinados ++;
- //       }
- //   }
-}    
 
-campanhaVacina();   
+    let petVacinadosCampanha = 0;
+
+    bancoDados.pets = bancoDados.pets.map((pet) => {
+        if (!pet.vacinado) {
+            vacinarPet(pet);
+            petVacinadosCampanha++;
+        }
+
+        return pet;
+        atualizarBanco();
+    });
+
+    
+    console.log(`${petVacinadosCampanha} pets foram vaciados nessa campanha!`);
+};
+//campanhaVacina();   
 const adicionarPet = novoPet => {
     bancoDados.pets.push(novoPet);
     atualizarBanco();
@@ -124,12 +119,16 @@ const apararUnhasPet = pet => {
     console.log(`${pet.nome} está com as unhas cortadas!`)
 }       
 //apararUnhasPet();
-//let pet = dados.pets.find(findPet => findPet.nome == petNome);
-const clientePremium = () => {
-    let servicos = bancoDados.pets.reduce((total,valoraAtual) =>{
-        
-    })
+
+const clientePremium = (pet) => {
+
+    let Nservicos = pet.servicos.length;
+    
+    Nservicos>=5 ? console.log('Você é cliente premium'): console.log(`Faltam ${5-Nservicos} para ser cliente premium! `)
+
 }
+//clientePremium(bancoDados.pets[2]);
+//clientePremium()
 const atenderClientes = (tipodeservico, pet) => {
 
     console.log(`${pet.tutor} bem vindo!`)
@@ -150,12 +149,7 @@ const atenderClientes = (tipodeservico, pet) => {
     console.log(`${pet.tutor} obrigado pela preferencia!`)   
 }   
     
-
-
 //atenderClientes('tosar',bancoDados.pets[2]);    
-  
-    
-
 //atenderClientes('tosar',bancoDados.pets[0])
     
  //tosarPet(bancoDados.pets[4])       
