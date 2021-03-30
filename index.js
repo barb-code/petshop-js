@@ -16,47 +16,74 @@ let bancoDados = fs.readFileSync('bancoDados.json','utf-8')
 bancoDados = JSON.parse(bancoDados);
 
 const atualizarBanco = () => {
-    let petsAtualizado = JSON.stringify(bancoDados,);
-
+    let petsAtualizado = JSON.stringify(bancoDados);
     fs.writeFileSync('bancoDados.json', petsAtualizado, 'utf-8')
 }
+
 const listarPet = () => {
-    for (const pet of bancoDados.pets) {
     
-    !pet.vacinado ? console.log(`${pet.nome} não foi vacinado.`) : console.log(`${pet.nome} foi vacinado!`) 
-    
-    }
+    bancoDados.pets.forEach( pet => {
+        console.log(`|Tutor:${pet.tutor} - Contato:${pet.contato}|\n -Nome do animal:${pet.nome}\n-Tipo:${pet.tipo}\n-Idade:${pet.idade}\n-Raça:${pet.raca} `)
+    });
+    //Utilizando if itenário
+    //for (const pet of bancoDados.pets) {
+    //    !pet.vacinado ? console.log(`${pet.nome} não foi vacinado.`) : console.log(`${pet.nome} foi vacinado!`) 
+    //}
 }
 //listarPet();
+const buscarPet =(nomePet)=>{
+   
+    let acharPet = bancoDados.pets.find((pet) => {
+        return pet.nome == nomePet
+    })
+    console.log(acharPet)
+}
+//buscarPet('Belinha');
 
-const vacinarPet = () => {                                                          //Criando uma função para listar o nome dos pets e ao utilizar const fica impossivel de alterar essa função.
-    for(let pet of bancoDados.pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
+const filtrarTipoPet = (tipoPet) =>{
+    let tipopet = bancoDados.pets.filter((pet) =>{ 
+      return pet.tipo == tipoPet
+    })
+    console.log(tipopet)
+}
+//filtrarTipoPet('gato')
+
+const vacinarPet = () => {                                                          
+   
+       for(let pet of bancoDados.pets){                                                          
         
         if (!pet.vacinado) {
             pet.vacinado == true
-            console.log(`${pet.nome} foi vacinado!`);        //console.log("O nome do pet é " + pets[i].nome); Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+            console.log(`${pet.nome} foi vacinado!`);       
         }
         else{
-            console.log(`Opps! ${pet.nome} já foi vacinado. `);        //console.log("O nome do pet é " + pets[i].nome); Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+            console.log(`Opps! ${pet.nome} já foi vacinado. `);        
         }
-    }                                                                               //Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+    }                                                                               
 }    
 
-//vacinarPet();                                                                       //Utilizando a função
+//vacinarPet();                                                                     
 
-
-const campanhaVacina = () => {                                                          //Criando uma função para listar o nome dos pets e ao utilizar const fica impossivel de alterar essa função.
+const campanhaVacina = () => {                                                          
     let animaisvacinados = 0;
     console.log("Campanha de vacina 2020");
     console.log("vacinando...");
-    for(let pet of bancoDados.pets){                                                           //for(let i = 0; i < pets.length; i++){    Criando um metodo interativo para fazer a contagem dos objetos
+    let campanha = bancoDados.pets.map(pet =>{
         if(!pet.vacinado)
         {
             vacinarPet(pet);
             animaisvacinados ++;
         }
-    }
-    console.log(`Dando um total de ${animaisvacinados} animais vacinados na campanha!`);                                                                                //Utilizando o console.log para "imprimir os itens .nome da lista de objetos pets"
+    })
+    
+ //   for(let pet of bancoDados.pets){                                                           
+ //       if(!pet.vacinado)
+ //       {
+ //           vacinarPet(pet);
+ //           animaisvacinados ++;
+ //       }
+ //   }
+    console.log(`Dando um total de ${animaisvacinados} animais vacinados na campanha!`);                                                                                
 }    
 
 //campanhaVacina();   
@@ -96,7 +123,11 @@ const apararUnhasPet = pet => {
 }       
 //apararUnhasPet();
 //let pet = dados.pets.find(findPet => findPet.nome == petNome);
-
+const clientePremium = () => {
+    let servicos = bancoDados.pets.reduce((total,valoraAtual) =>{
+        
+    })
+}
 const atenderClientes = (tipodeservico, pet) => {
 
     console.log(`${pet.tutor} bem vindo!`)
@@ -113,15 +144,17 @@ const atenderClientes = (tipodeservico, pet) => {
             default:
                 console.log('Serviço não disponivel -- Por favor consultar tabela de serviços!');
                 break;
-            }
+        }
     console.log(`${pet.tutor} obrigado pela preferencia!`)   
 }   
     
-    
+
+
+//atenderClientes('tosar',bancoDados.pets[2]);    
   
     
 
-atenderClientes('tosar',bancoDados.pets[0])
+//atenderClientes('tosar',bancoDados.pets[0])
     
  //tosarPet(bancoDados.pets[4])       
 //darBanhoPet(bancoDados.pets[0])
