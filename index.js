@@ -24,9 +24,9 @@ const listarPet = () => {
   
     bancoDados.pets.forEach( pet => {
 
-    let {tutor,contato,nome,tipo,idade,raca,peso,servicos} = pet
+    let {tutor,contato,nome,tipo,idade,raca,peso,...servicos} = pet
 
-    console.log(`\n|Tutor: ${tutor} - Contato: ${contato}|\n - Nome do animal: ${nome}\n - Peso: ${peso} kg\n - Tipo: ${tipo}\n - Idade: ${idade}\n - Raça: ${raca}\n - Serviços: `, servicos)
+    console.log(`\n|Tutor: ${tutor} - Contato: ${contato}|\n - Nome do animal: ${nome}\n - Peso: ${peso} kg\n - Tipo: ${tipo}\n - Idade: ${idade}\n - Raça: ${raca}\n - Serviços: `,servicos)
     
     });
     //Utilizando if itenário
@@ -35,7 +35,7 @@ const listarPet = () => {
     //}
 }
 
-listarPet();
+//listarPet();
 
 const buscarPet =(nomePet)=>{
    
@@ -84,10 +84,16 @@ const campanhaVacina = () => {
     console.log(`${petVacinadosCampanha} pets foram vaciados nessa campanha!`);
 };
 //campanhaVacina();   
-const adicionarPet = novoPet => {
-    bancoDados.pets.push(novoPet);
+
+const adicionarPets = (...novosPets) => {
+    novosPets.forEach((novoPet) => {
+        bancoDados.pets.push(novoPet);
+    })
+
     atualizarBanco();
-    console.log(`${novoPet.nome} foi adicionado com sucesso!`)
+    novosPets.forEach((pet) => {
+        console.log(`${pet.nome} foi adicionado com sucesso!`);
+    })
 }
 
 
@@ -148,12 +154,37 @@ const atenderClientes = (tipodeservico, pet) => {
         }
     console.log(`${pet.tutor} obrigado pela preferencia!`)   
 }   
-    
-//atenderClientes('tosar',bancoDados.pets[2]);    
-//atenderClientes('tosar',bancoDados.pets[0])
-    
- //tosarPet(bancoDados.pets[4])       
-//darBanhoPet(bancoDados.pets[0])
-//apararUnhasPet(bancoDados.pets[2])
-//atenderClientes();
-//console.log(bancoDados);
+
+adicionarPets([{
+    "nome": "Bidu",
+    "tipo": "gato",
+    "idade": 3,
+    "raca": "American",
+    "peso": 28,
+    "tutor": "Doug",
+    "contato": "(11) 99999-9999",
+    "vacinado": true,
+    "servicos": []
+},
+{
+    "nome": "Eva",
+    "tipo": "gato",
+    "idade": 3,
+    "raca": "American",
+    "peso": 28,
+    "tutor": "Hendy",
+    "contato": "(11) 99999-9999",
+    "vacinado": true,
+    "servicos": []
+},
+{
+    "nome": "Tag",
+    "tipo": "gato",
+    "idade": 3,
+    "raca": "American",
+    "peso": 28,
+    "tutor": "Doug",
+    "contato": "(11) 99999-9999",
+    "vacinado": true,
+    "servicos": []
+}]);
